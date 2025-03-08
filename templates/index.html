@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitals Input - Pregnancy AI Chatbot</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3eae4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background: #f3eae4;
+            padding: 10px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #010101;
+        }
+
+        .navbar i {
+            font-size: 24px;
+            color: #fe9e9f;
+            margin-right: 10px;
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .container {
+            width: 400px;
+            background: #e06263;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: white;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .header i {
+            font-size: 24px;
+            color: white;
+        }
+
+        h2 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 12px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #794f37;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #acb060;
+        }
+
+        .svg-container {
+            max-width: 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .svg-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/d0651fd824.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <i class="fa-solid fa-leaf"></i>
+        <p>Maatr AI</p>
+    </div>
+    <div class="main-content">
+        <div class="container">
+            <div class="header">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <h2>Enter Your Vitals</h2>
+            </div>
+            <div class="input-group">
+                <label for="bp_systolic">Blood Pressure Systolic (Upper)</label>
+                <input type="number" id="bp_systolic" placeholder="Enter value">
+            </div>
+            <div class="input-group">
+                <label for="bp_diastolic">Blood Pressure Diastolic (Lower)</label>
+                <input type="number" id="bp_diastolic" placeholder="Enter value">
+            </div>
+            <div class="input-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" placeholder="Enter value">
+            </div>
+            <div class="input-group">
+                <label for="sugar">Sugar Levels (mg/dL)</label>
+                <input type="number" id="sugar" placeholder="Enter value">
+            </div>
+            <div class="input-group">
+                <label for="heart">Heart Rate (bpm)</label>
+                <input type="number" id="heart" placeholder="Enter value">
+            </div>
+            <div class="input-group">
+                <label for="body_temp">Body Temperature (°F)</label>
+                <input type="number" id="body_temp" placeholder="Enter value">
+            </div>
+            <button onclick="goToChat()">Analyze My Health</button>
+        </div>
+        <div class="svg-container">
+            <img src="static/43474626_9049796.svg" alt="Health Analysis Illustration">
+        </div>
+    </div>
+    <script>
+        function goToChat() {
+            let fields = ['bp_systolic', 'bp_diastolic', 'age', 'sugar', 'heart', 'body_temp'];
+            let valid = true;
+            let data = {};
+
+            fields.forEach(field => {
+                let input = document.getElementById(field);
+                let value = input.value;
+
+                if (value === "" || isNaN(value) || parseFloat(value) <= 0) {
+                    alert(`Please enter a valid positive numeric value for ${input.previousElementSibling.textContent}`);
+                    valid = false;
+                } else {
+                    data[field] = parseFloat(value);
+                }
+            });
+
+            if (!valid) return;
+
+            // Store vitals in sessionStorage for retrieval in chat.html
+            sessionStorage.setItem('vitals', JSON.stringify(data));
+
+            // Redirect to chat.html to collect symptoms
+            window.location.href = "/chat";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+Flask
+joblib
+numpy
+scikit-learn
+pandas
+datetime
+joblib
+neo4j
+transformers
+torch
+nltk
